@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Eveztra - Feedback</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Pacifico&display=swap" rel="stylesheet">
+      <link rel="icon" href="images/WhatsApp Image 2025-09-11 at 09.23.26_22c10339.jpg">
+
+    <style>
+        :root {
+            --primary: #854085;     /* Purple Shade */
+            --secondary: #038387;   /* Teal Shade */
+            --accent: #407855;      /* Green Shade */
+            --light: #f8f9fa;       /* Light Gray */
+            --dark: #343a40;        /* Deep Slate */
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 11px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--light);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+            border: 3px solid #ffffff;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #783778;
+        }
+
+        .navbar {
+            background: var(--primary);
+            padding: 15px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: white !important;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .navbar-nav {
+            flex-wrap: nowrap;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.9) !important;
+            font-weight: 500;
+            margin: 0 10px;
+            position: relative;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-link:not(.btn-login)::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:not(.btn-login):hover::after {
+            width: calc(100% - 20px);
+        }
+
+        .nav-link.active:not(.btn-login)::after {
+            width: calc(100% - 20px);
+            background-color: var(--accent);
+        }
+
+        .nav-link:hover {
+            color: white !important;
+        }
+
+        .nav-link.btn-login {
+            background-color: var(--secondary);
+            border: none;
+            color: white !important;
+            padding: 8px 20px !important;
+            border-radius: 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+            display: inline-block;
+        }
+        
+        .nav-link.btn-login:hover {
+            background-color: #138496;
+            border-color: #138496;
+            color: white !important;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .feedback-section {
+            padding: 80px 0;
+            background-color: var(--light);
+        }
+
+        .section-title {
+            font-weight: 800;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+            color: var(--dark);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background-color: var(--accent);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            color: #64748b;
+            margin-bottom: 50px;
+            font-size: 1.1rem;
+        }
+
+        .feedback-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            display: flex;
+            gap: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feedback-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: var(--primary);
+            border-radius: 0 0 0 100px;
+            z-index: 0;
+        }
+
+        .feedback-left {
+            flex: 1;
+            text-align: left;
+            padding-right: 20px;
+            z-index: 1;
+        }
+
+        .feedback-right {
+            flex: 1;
+            z-index: 1;
+        }
+
+        .feedback-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 10px;
+            flex: 1;
+        }
+
+        .feedback-form input, .feedback-form textarea, .feedback-form select {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            color: var(--dark);
+            font-size: 1rem;
+            transition: all 0.3s;
+            width: 100%;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .feedback-form input:focus, .feedback-form textarea:focus, .feedback-form select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
+        }
+
+        .feedback-form textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .error-message {
+            color: #dc2626;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            text-align: left;
+            display: none;
+        }
+
+        .feedback-form input.error, .feedback-form textarea.error, .feedback-form select.error {
+            border-color: #dc2626;
+        }
+
+        .feedback-form input.success, .feedback-form textarea.success, .feedback-form select.success {
+            border-color: #22c55e;
+        }
+
+        .feedback-info {
+            margin-bottom: 30px;
+        }
+
+        .feedback-info p {
+            color: #64748b;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+        }
+
+        .social-icons {
+            padding-left: 50px;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            color: white;
+            margin-right: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: var(--accent);
+            transform: scale(1.1);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            z-index: 1;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #783778;
+            transform: translateY(-3px);
+        }
+
+        .btn-primary:active{
+            background: var(--primary) !important;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            transform: scale(0.7);
+            transition: transform 0.3s ease;
+            overflow: hidden;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: var(--primary);
+            border-radius: 0 0 0 100px;
+        }
+
+        .modal-content h3 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .modal-content p {
+            color: #64748b;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .modal-content .btn-primary {
+            padding: 12px 30px;
+            font-size: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .modal-content.error h3 {
+            color: #dc2626;
+        }
+
+        .modal-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .modal-content.error .modal-icon {
+            color: #dc2626;
+        }
+
+        .footer {
+            background: var(--primary);
+            color: white;
+            padding: 100px 0 40px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 400px;
+        }
+
+        .footer-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            padding-left: 50px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            padding-left: 50px;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(8px);
+        }
+
+        .footer-contact-info {
+            color: rgba(255,255,255,0.8);
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            padding-left: 50px;
+            text-decoration: none;
+        }
+
+        .footer-social-icons {
+            padding-left: 50px;
+        }
+
+        .footer-social-icons a {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            color: white;
+            margin-right: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social-icons a:hover {
+            background: var(--accent);
+            transform: scale(1.1);
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 15px;
+            margin-top: 30px;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.8rem;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            margin-bottom: 0;
+        }
+
+        .copyright a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            position: relative;
+        }
+
+        .copyright a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .copyright a:hover::after {
+            width: 100%;
+        }
+
+        .copyright a:hover {
+            color: white;
+        }
+
+        .footer .row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: 1200px;
+            padding: 0 30px;
+        }
+
+        .footer .col-lg-2,
+        .footer .col-md-6 {
+            margin-bottom: 30px;
+            padding: 0 20px;
+            flex: 1 1 20%;
+            min-width: 150px;
+        }
+
+        .footer .col-lg-4 {
+            padding: 0 20px;
+            flex: 1 1 30%;
+            min-width: 250px;
+        }
+
+        @media (min-width: 992px) {
+            .footer .col-lg-2 {
+                margin-bottom: 0;
+            }
+        }
+
+        /* Mobile Navbar Sliding Panel */
+        @media (max-width: 1199.98px) {
+            .navbar-nav .nav-link {
+                margin: 0 8px;
+                font-size: 0.95rem;
+            }
+            
+            .nav-link.btn-login {
+                background-color: var(--accent);
+                border: none;
+                padding: 6px 40px;
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 991.98px) {
+            .navbar-collapse {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: var(--primary) !important;
+                transition: right 0.3s ease-in-out, visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
+                padding: 20px;
+                box-shadow: -2px 0 10px rgba(0,0,0,0.3);
+                z-index: 1000;
+                visibility: hidden;
+                opacity: 0;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+
+            .navbar-collapse::-webkit-scrollbar {
+                display: none;
+            }
+
+            .navbar-collapse::-webkit-scrollbar-thumb {
+                background: transparent;
+            }
+
+            .navbar-collapse::-webkit-scrollbar-track {
+                background: transparent;
+            }
+
+            .navbar-collapse.show {
+                right: 0;
+                visibility: visible;
+                opacity: 1;
+                background: var(--primary) !important;
+            }
+
+            .navbar-nav {
+                flex-direction: column;
+                text-align: center;
+                margin-top: 60px;
+                width: 100%;
+            }
+
+            .nav-link {
+                margin: 20px 0;
+                padding: 20px 15px;
+                font-size: 1.1rem;
+                text-align: center;
+                display: block;
+            }
+
+            .nav-link:not(.btn-login)::after {
+                content: none;
+            }
+
+            .nav-link.active:not(.btn-login)::after {
+                content: none;
+            }
+
+            .nav-link.btn-login::after {
+                content: none;
+            }
+
+            .nav-link.btn-login {
+                background-color: var(--accent);
+                border: none;
+                padding: 10px 40px;
+                font-size: 1rem;
+                margin: 20px auto;
+                display: block;
+            }
+
+            .navbar-close {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                background: transparent;
+                border: none;
+                color: white;
+                font-size: 1.5rem;
+                cursor: pointer;
+                transition: transform 0.3s ease;
+                display: block;
+                z-index: 1001;
+            }
+
+            .navbar-close:hover {
+                transform: rotate(90deg);
+            }
+
+            .navbar-collapse.show::after {
+                content: '';
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+            }
+            
+            .navbar-toggler {
+                border: none;
+                padding: 4px 8px;
+                transition: all 0.2s ease;
+            }
+            
+            .navbar-toggler:focus {
+                box-shadow: none;
+            }
+            
+            .navbar-collapse {
+                will-change: transform, opacity;
+            }
+
+            .feedback-container {
+                flex-direction: column;
+            }
+
+            .feedback-left {
+                padding-right: 0;
+                margin-top: 50px;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .navbar-close {
+                display: none !important;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 767.98px) {
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .feedback-container {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .feedback-container {
+                padding: 20px;
+            }
+
+            .btn-primary {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+
+            .footer {
+                padding: 60px 0 20px;
+            }
+
+            .footer-title {
+                font-size: 1.2rem;
+                padding-left: 10px;
+            }
+
+            .footer-links a,
+            .footer-contact-info {
+                font-size: 0.95rem;
+                padding-left: 10px;
+                margin-bottom: 8px;
+            }
+
+            .footer-social-icons {
+                padding-left: 10px;
+            }
+
+            .footer-social-icons a {
+                width: 28px;
+                height: 28px;
+                line-height: 28px;
+                margin-right: 5px;
+            }
+
+            .copyright {
+                font-size: 0.75rem;
+                padding: 10px 15px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .footer .col-lg-2,
+            .footer .col-md-6,
+            .footer .col-lg-4 {
+                flex: 1 1 100%;
+                min-width: 100%;
+                padding: 0 10px;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Eveztra</a>
+            <button class="navbar-toggler" type="button" id="navbarToggler">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse" id="navbarNav">
+                <button class="navbar-close d-lg-none" id="navbarClose">
+                    <i class="fas fa-times"></i>
+                </button>
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="eventcatalog.html">Event Catalog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="eventdetails.html">Event Details</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gallery.html">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="feedback.html">Feedback</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn-login" href="login.html">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Feedback Section -->
+    <section class="feedback-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="section-title" data-aos="zoom-in">Share Your Experience</h2>
+                    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="200">Help us improve by sharing your thoughts about our events</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feedback-container">
+                        <div class="feedback-left">
+                            <h3 style="margin-bottom: 20px; color: var(--primary);">Your Opinion Matters!</h3>
+                            <p style="color: #64748b; margin-bottom: 30px; line-height: 1.6;">
+                                At Eveztra, we're committed to providing the best event experiences. Your feedback helps us understand what we're doing well and where we can improve. We appreciate you taking the time to share your thoughts with us.
+                            </p>
+                            <div class="feedback-info">
+                                <p><i class="fas fa-envelope"></i> feedback@Eveztra.edu</p>
+                                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                                <p><i class="fas fa-map-marker-alt"></i> Bahria College Karsaz, Karachi</p>
+                            </div>
+                            <div class="social-icons">
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                        <div class="feedback-right">
+                            <form class="feedback-form" id="feedbackForm">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <input type="text" id="fullName" placeholder="Full Name" required>
+                                        <div class="error-message" id="fullNameError"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="email" id="email" placeholder="Email Address" required>
+                                        <div class="error-message" id="emailError"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <select id="userType" required>
+                                        <option value="" disabled selected>Select Your Role</option>
+                                        <option value="student">Student</option>
+                                        <option value="faculty">Faculty</option>
+                                        <option value="staff">Staff</option>
+                                        <option value="visitor">Visitor</option>
+                                    </select>
+                                    <div class="error-message" id="userTypeError"></div>
+                                </div>
+                                <div class="form-group">
+                                    <select id="eventAttended" required>
+                                        <option value="" disabled selected>Select Event Attended</option>
+                                        <option value="techfest">TechFest 2025</option>
+                                        <option value="cultural">Cultural Night</option>
+                                        <option value="sports">Sports Tournament</option>
+                                        <option value="workshop">Web Development Workshop</option>
+                                    </select>
+                                    <div class="error-message" id="eventAttendedError"></div>
+                                </div>
+                                <div class="form-group">
+                                    <select id="rating" required>
+                                        <option value="" disabled selected>How would you rate your experience?</option>
+                                        <option value="5">Excellent (5 Stars)</option>
+                                        <option value="4">Very Good (4 Stars)</option>
+                                        <option value="3">Good (3 Stars)</option>
+                                        <option value="2">Fair (2 Stars)</option>
+                                        <option value="1">Poor (1 Star)</option>
+                                    </select>
+                                    <div class="error-message" id="ratingError"></div>
+                                </div>
+                                <div class="form-group">
+                                    <textarea id="feedback" placeholder="Share your detailed feedback here..." required></textarea>
+                                    <div class="error-message" id="feedbackError"></div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-paper-plane me-2"></i> Submit Feedback
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Custom Modal -->
+    <div class="modal-overlay" id="customModal">
+        <div class="modal-content" id="modalContent">
+            <div class="modal-icon">
+                <i class="fas fa-check-circle" id="modalIcon"></i>
+            </div>
+            <h3 id="modalTitle"></h3>
+            <p id="modalMessage"></p>
+            <button class="btn btn-primary" id="modalCloseBtn">OK</button>
+        </div>
+    </div>
+
+       <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2 col-md-6">
+                    <h3 class="footer-title">Quick Links</h3>
+                    <div class="footer-links">
+                        <a href="index.html">Home</a>
+                        <a href="eventcatalog.html">Events</a>
+                        <a href="gallery.html">Gallery</a>
+                        <a href="about.html">About</a>
+                        <a href="contact.html">Contact</a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h3 class="footer-title">Events</h3>
+                    <div class="footer-links">
+                        <a href="eventcatalog.html">Cultural</a>
+                        <a href="eventcatalog.html">Technical</a>
+                        <a href="eventcatalog.html">Sports</a>
+                        <a href="eventcatalog.html">Workshops</a>
+                        <a href="eventcatalog.html">Alumni Meet</a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h3 class="footer-title">Galleries</h3>
+                    <div class="footer-links">
+                        <a href="gallery.html">Cultural</a>
+                        <a href="gallery.html">Technical</a>
+                        <a href="gallery.html">Sports</a>
+                        <a href="gallery.html">Workshops</a>
+                        <a href="gallery.html">Alumni Meet</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <h3 class="footer-title">Connect with Us</h3>
+                    <div class="footer-links">
+                        <p class="footer-contact-info"><i class="fas fa-map-marker-alt me-2"></i> Bahria College Karsaz</p>
+                        <p class="footer-contact-info"><i class="fas fa-phone me-2"></i> +1 234 567 8900</p>
+                        <p class="footer-contact-info"><i class="fas fa-envelope me-2"></i> info@Eveztra.edu</p>
+                    </div>
+                    <div class="social-icons mt-3">
+                        <a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://x.com/"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Eveztra. All Rights Reserved.</p>
+                <a href="sitemap.html">Sitemap</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
+        // Custom mobile menu functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const navbarToggler = document.getElementById('navbarToggler');
+            const navbarClose = document.getElementById('navbarClose');
+            const navbarCollapse = document.getElementById('navbarNav');
+            const navLinks = document.querySelectorAll('.nav-link');
+            let currentActiveLink = 'feedback.html';
+
+            function updateActiveLink(href) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === href) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            function removeActiveClass() {
+                if (window.innerWidth <= 991.98) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                    });
+                } else {
+                    updateActiveLink(currentActiveLink);
+                }
+            }
+
+            const currentPage = window.location.pathname.split('/').pop() || 'feedback.html';
+            updateActiveLink(currentPage);
+            currentActiveLink = currentPage;
+
+            navbarToggler.addEventListener('click', function() {
+                navbarCollapse.classList.add('show');
+                document.body.style.overflow = 'hidden';
+                removeActiveClass();
+            });
+
+            navbarClose.addEventListener('click', function() {
+                navbarCollapse.classList.remove('show');
+                document.body.style.overflow = '';
+                removeActiveClass();
+            });
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    currentActiveLink = this.getAttribute('href');
+                    if (window.innerWidth > 991.98) {
+                        updateActiveLink(currentActiveLink);
+                    } else {
+                        navbarCollapse.classList.remove('show');
+                        document.body.style.overflow = '';
+                        removeActiveClass();
+                    }
+                });
+            });
+
+            document.addEventListener('click', function(event) {
+                if (!event.target.closest('.navbar-collapse') && !event.target.closest('.navbar-toggler') && navbarCollapse.classList.contains('show')) {
+                    navbarCollapse.classList.remove('show');
+                    document.body.style.overflow = '';
+                    removeActiveClass();
+                }
+            });
+
+            window.addEventListener('resize', function() {
+                removeActiveClass();
+                if (window.innerWidth > 991.98 && navbarCollapse.classList.contains('show')) {
+                    navbarCollapse.classList.remove('show');
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // Form Validation and Modal
+            const feedbackForm = document.getElementById('feedbackForm');
+            const modal = document.getElementById('customModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalMessage = document.getElementById('modalMessage');
+            const modalCloseBtn = document.getElementById('modalCloseBtn');
+            const modalIcon = document.getElementById('modalIcon');
+
+            // Form Validation Functions
+            function validateName(name) {
+                if (!name.trim()) {
+                    return "Full name is required";
+                } else if (name.length < 3) {
+                    return "Full name must be at least 3 characters long";
+                } else if (!/^[a-zA-Z\s]+$/.test(name)) {
+                    return "Full name can only contain letters and spaces (no digits)";
+                }
+                return "";
+            }
+
+            function validateEmail(email) {
+                if (!email.trim()) {
+                    return "Email is required";
+                }
+                const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                if (!emailRegex.test(email)) {
+                    return "Please enter a valid email address (e.g., example@gmail.com)";
+                }
+                return "";
+            }
+
+            function validateUserType(userType) {
+                if (!userType) {
+                    return "Please select your user type";
+                }
+                return "";
+            }
+
+            function validateEventAttended(eventAttended) {
+                if (!eventAttended) {
+                    return "Please select an event you attended";
+                }
+                return "";
+            }
+
+            function validateRating(rating) {
+                if (!rating) {
+                    return "Please select a rating";
+                }
+                return "";
+            }
+
+            function validateFeedback(feedback) {
+                if (!feedback.trim()) {
+                    return "Feedback is required";
+                } else if (feedback.length < 10) {
+                    return "Feedback must be at least 10 characters long";
+                }
+                return "";
+            }
+
+            function showError(fieldId, errorId, message) {
+                const field = document.getElementById(fieldId);
+                const errorElement = document.getElementById(errorId);
+                field.classList.add('error');
+                field.classList.remove('success');
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+            }
+
+            function showSuccess(fieldId, errorId) {
+                const field = document.getElementById(fieldId);
+                const errorElement = document.getElementById(errorId);
+                field.classList.remove('error');
+                field.classList.add('success');
+                errorElement.textContent = '';
+                errorElement.style.display = 'none';
+            }
+
+            function showModal(title, message, isError = false) {
+                modalTitle.textContent = title;
+                modalMessage.textContent = message;
+                
+                if (isError) {
+                    modalIcon.className = 'fas fa-exclamation-circle';
+                    modalIcon.style.color = '#dc2626';
+                    document.getElementById('modalContent').classList.add('error');
+                } else {
+                    modalIcon.className = 'fas fa-check-circle';
+                    modalIcon.style.color = 'var(--primary)';
+                    document.getElementById('modalContent').classList.remove('error');
+                }
+                
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal() {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+
+            feedbackForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const fullName = document.getElementById('fullName').value;
+                const email = document.getElementById('email').value;
+                const userType = document.getElementById('userType').value;
+                const eventAttended = document.getElementById('eventAttended').value;
+                const rating = document.getElementById('rating').value;
+                const feedback = document.getElementById('feedback').value;
+                
+                const fullNameError = validateName(fullName);
+                const emailError = validateEmail(email);
+                const userTypeError = validateUserType(userType);
+                const eventAttendedError = validateEventAttended(eventAttended);
+                const ratingError = validateRating(rating);
+                const feedbackError = validateFeedback(feedback);
+                
+                let isValid = true;
+                
+                if (fullNameError) {
+                    showError('fullName', 'fullNameError', fullNameError);
+                    isValid = false;
+                } else {
+                    showSuccess('fullName', 'fullNameError');
+                }
+                
+                if (emailError) {
+                    showError('email', 'emailError', emailError);
+                    isValid = false;
+                } else {
+                    showSuccess('email', 'emailError');
+                }
+                
+                if (userTypeError) {
+                    showError('userType', 'userTypeError', userTypeError);
+                    isValid = false;
+                } else {
+                    showSuccess('userType', 'userTypeError');
+                }
+                
+                if (eventAttendedError) {
+                    showError('eventAttended', 'eventAttendedError', eventAttendedError);
+                    isValid = false;
+                } else {
+                    showSuccess('eventAttended', 'eventAttendedError');
+                }
+                
+                if (ratingError) {
+                    showError('rating', 'ratingError', ratingError);
+                    isValid = false;
+                } else {
+                    showSuccess('rating', 'ratingError');
+                }
+                
+                if (feedbackError) {
+                    showError('feedback', 'feedbackError', feedbackError);
+                    isValid = false;
+                } else {
+                    showSuccess('feedback', 'feedbackError');
+                }
+                
+                if (isValid) {
+                    showModal(
+                        'Thank You For Your Feedback!',
+                        'We appreciate you taking the time to share your experience with us. Your feedback helps us improve our events and services for the entire Eveztra community.'
+                    );
+                    feedbackForm.reset();
+                    document.getElementById('fullName').classList.remove('success');
+                    document.getElementById('email').classList.remove('success');
+                    document.getElementById('userType').classList.remove('success');
+                    document.getElementById('eventAttended').classList.remove('success');
+                    document.getElementById('rating').classList.remove('success');
+                    document.getElementById('feedback').classList.remove('success');
+                } else {
+                    showModal(
+                        'Please Check Your Form',
+                        'There are some errors in the form. Please correct them before submitting.',
+                        true
+                    );
+                }
+            });
+
+            modalCloseBtn.addEventListener('click', () => {
+                closeModal();
+            });
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+
+            // Real-time validation
+            document.getElementById('fullName').addEventListener('input', function() {
+                const error = validateName(this.value);
+                if (error) {
+                    showError('fullName', 'fullNameError', error);
+                } else {
+                    showSuccess('fullName', 'fullNameError');
+                }
+            });
+
+            document.getElementById('email').addEventListener('input', function() {
+                const error = validateEmail(this.value);
+                if (error) {
+                    showError('email', 'emailError', error);
+                } else {
+                    showSuccess('email', 'emailError');
+                }
+            });
+
+            document.getElementById('userType').addEventListener('change', function() {
+                const error = validateUserType(this.value);
+                if (error) {
+                    showError('userType', 'userTypeError', error);
+                } else {
+                    showSuccess('userType', 'userTypeError');
+                }
+            });
+
+            document.getElementById('eventAttended').addEventListener('change', function() {
+                const error = validateEventAttended(this.value);
+                if (error) {
+                    showError('eventAttended', 'eventAttendedError', error);
+                } else {
+                    showSuccess('eventAttended', 'eventAttendedError');
+                }
+            });
+
+            document.getElementById('rating').addEventListener('change', function() {
+                const error = validateRating(this.value);
+                if (error) {
+                    showError('rating', 'ratingError', error);
+                } else {
+                    showSuccess('rating', 'ratingError');
+                }
+            });
+
+            document.getElementById('feedback').addEventListener('input', function() {
+                const error = validateFeedback(this.value);
+                if (error) {
+                    showError('feedback', 'feedbackError', error);
+                } else {
+                    showSuccess('feedback', 'feedbackError');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

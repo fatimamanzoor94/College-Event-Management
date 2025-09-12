@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Gallery - Festiva</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Cinzel:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <!-- AOS for animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Pacifico&display=swap" rel="stylesheet">
+      <link rel="icon" href="images/WhatsApp Image 2025-09-11 at 09.23.26_22c10339.jpg">
+
+    <style>
+        :root {
+            --primary: #854085;   
+            --secondary: #038387; 
+            --accent: #407855;    
+            --light: #f8f9fa;       
+            --dark: #343a40;      
+            --dark-gray: #1a1a1a;
+            --mid-gray: #2a2a2a;
+            --light-gray: #3a3a3a;
+            --text: #e0e0e0;
+            --text-light: #a0a0a0;
+            --gold: #d4af37;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 11px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--light);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+            border: 3px solid #ffffff;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #783778;
+        }
+        /* Navbar Styles */
+        .navbar {
+            background: var(--primary);
+            padding: 15px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: white !important;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .navbar-nav {
+            flex-wrap: nowrap;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.9) !important;
+            font-weight: 500;
+            margin: 0 10px;
+            position: relative;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-link:not(.btn-login)::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:not(.btn-login):hover::after {
+            width: calc(100% - 20px);
+        }
+
+        .nav-link.active:not(.btn-login)::after {
+            width: calc(100% - 20px);
+            background-color: var(--accent);
+        }
+
+        .nav-link:hover {
+            color: white !important;
+        }
+
+        .nav-link.btn-login {
+            background-color: var(--secondary);
+            border: none;
+            color: white !important;
+            padding: 8px 20px !important;
+            border-radius: 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+            display: inline-block;
+        }
+
+        .nav-link.btn-login:hover {
+            background-color: #138496;
+            color: white !important;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        /* Gallery Section */
+        .gallery {
+            padding: 50px;
+            min-height: 100vh;
+            width: 100%;
+            background-color: var(--light);
+            position: relative;
+        }
+        
+        .gallery-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            color: var(--dark);
+            font-weight: 800;
+            font-size: 2.5rem;
+        }
+        
+        .gallery-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        /* Filter Controls */
+        .filter-container {
+            background: white;
+            border-radius: 20px;
+            border: 1px solid rgba(133, 64, 133, 0.15);
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .filter-heading {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            text-align: left;
+            justify-content: flex-start;
+        }
+        
+        .filter-heading i {
+            color: var(--primary);
+        }
+        
+        .filter-select, .sort-select {
+            border-radius: 15px;
+            border: 2px solid var(--secondary);
+            padding: 10px 15px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: white;
+            color: var(--dark);
+        }
+        
+        .filter-select:focus, .sort-select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 0.2rem rgba(133, 64, 133, 0.25);
+        }
+        
+        .btn-filter {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-filter:hover {
+            background: #783778;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-filter:focus,
+        .btn-filter:active,
+        .btn-filter:active:focus {
+            background-color: var(--primary) !important;
+            color: white !important;
+        }
+
+        .btn-filter:hover:focus,
+        .btn-filter:hover:active {
+            background-color: #783778 !important;
+            color: white !important;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            justify-items: center;
+            width: 100%;
+        }
+        
+        .gallery-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease;
+            height: 300px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            background: white;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+        
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: linear-gradient(to bottom, rgba(133, 64, 133, 0.7), transparent);
+            transition: height 0.5s ease;
+            z-index: 1;
+        }
+        
+        .gallery-item:hover::before {
+            height: 100%;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            border: 1.5px solid var(--accent);
+            box-shadow: 0 15px 35px rgba(133, 64, 133, 0.2);
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-info {
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            z-index: 2;
+            transition: all 0.5s ease;
+            opacity: 0;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 0 0 20px 20px;
+        }
+        
+        .gallery-item:hover .gallery-info {
+            top: calc(100% - 80px);
+            opacity: 1;
+        }
+        
+        .gallery-info h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .gallery-info p {
+            color: var(--dark);
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+        
+        .category-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, var(--primary), #6a336a);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            z-index: 2;
+        }
+        
+        .year-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: linear-gradient(135deg, var(--accent), #2e5a3e);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            z-index: 2;
+        }
+        
+        /* Modal - FIXED & BEAUTIFIED */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            padding: 20px;
+        }
+        
+        .modal.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: 0 0 60px rgba(133, 64, 133, 0.4);
+            background: white;
+            animation: modalPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid rgba(133, 64, 133, 0.3);
+            /* Auto-adjust width based on image */
+            width: auto;
+            max-width: 95vw;
+        }
+        
+        @keyframes modalPop {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .modal-image-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: #000;
+            position: relative;
+            /* Adjust height based on viewport */
+            max-height: calc(100vh - 140px);
+        }
+        
+        .modal-content img {
+            /* Remove max-width and max-height constraints to allow natural sizing */
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            display: block;
+            margin: auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            /* Let the image determine the modal size */
+            max-width: 90vw;
+            max-height: calc(100vh - 180px);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 2001;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .modal-close:hover {
+            transform: rotate(90deg) scale(1.1);
+            background: var(--accent);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .modal-info {
+            padding: 25px 30px;
+            background: white;
+            color: var(--dark);
+            text-align: center;
+            border-top: 2px solid var(--primary);
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .modal-info h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .modal-info p {
+            color: var(--dark);
+            font-size: 1.1rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+        
+        /* Extra polish for modal */
+        .modal-content img {
+            transition: transform 0.4s ease;
+        }
+        
+        .modal-content:hover img {
+            transform: scale(1.02);
+        }
+        /* Footer Styles */
+        .footer {
+            background: var(--primary);
+            color: white;
+            padding: 100px 0 40px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 400px;
+        }
+        .footer-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            padding-left: 50px;
+        }
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            padding-left: 50px;
+        }
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(8px);
+        }
+        .footer-contact-info {
+            color: rgba(255,255,255,0.8);
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            padding-left: 50px;
+            text-decoration: none;
+        }
+        .social-icons {
+            padding-left: 50px;
+        }
+        .social-icons a {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            color: white;
+            margin-right: 8px;
+            transition: all 0.3s ease;
+        }
+        .social-icons a:hover {
+            background: var(--accent);
+            transform: scale(1.1);
+        }
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 15px;
+            margin-top: 30px;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.8rem;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            margin-bottom: 0;
+        }
+        .copyright a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            position: relative;
+        }
+        .copyright a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+        .copyright a:hover::after {
+            width: 100%;
+        }
+        .copyright a:hover {
+            color: white;
+        }
+        .footer .row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: 1200px;
+            padding: 0 30px;
+        }
+        .footer .col-lg-2,
+        .footer .col-md-6 {
+            margin-bottom: 30px;
+            padding: 0 20px;
+            flex: 1 1 20%;
+            min-width: 150px;
+        }
+        .footer .col-lg-4 {
+            padding: 0 20px;
+            flex: 1 1 30%;
+            min-width: 250px;
+        }
+        /* Responsive Design for Gallery */
+        @media (max-width: 1200px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .gallery {
+                padding: 120px 5% 60px;
+            }
+            
+            .gallery-title {
+                font-size: 2.5rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            
+            .gallery-item {
+                height: 250px;
+            }
+            
+            /* Filter adjustments for mobile */
+            .filter-container {
+                padding: 20px;
+            }
+            
+            .filter-heading {
+                font-size: 1.5rem;
+            }
+            
+            .filter-select, .sort-select {
+                margin-bottom: 15px;
+            }
+            
+            /* Modal adjustments for mobile */
+            .modal {
+                padding: 10px;
+            }
+            
+            .modal-content {
+                border-radius: 12px;
+            }
+            
+            .modal-image-container {
+                max-height: calc(100vh - 120px);
+            }
+            
+            .modal-content img {
+                max-height: 70vh;
+                max-width: 90vw;
+                border-radius: 6px;
+            }
+            
+            .modal-close {
+                width: 45px;
+                height: 45px;
+                top: 15px;
+                right: 15px;
+                font-size: 1.3rem;
+            }
+            
+            .modal-info {
+                padding: 20px;
+            }
+            
+            .modal-info h3 {
+                font-size: 1.5rem;
+            }
+            
+            .modal-info p {
+                font-size: 1rem;
+            }
+            
+            /* Fix for mobile viewport */
+            html, body {
+                position: relative;
+                overflow-x: hidden;
+                width: 100%;
+            }
+            
+            body {
+                -webkit-text-size-adjust: 100%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .gallery-title {
+                font-size: 2.2rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-item {
+                height: 280px;
+                max-width: 100%;
+            }
+            
+            /* Filter adjustments for small screens */
+            .filter-heading {
+                font-size: 1.3rem;
+            }
+            
+            /* Modal adjustments for small screens */
+            .modal-content {
+                max-width: 99vw;
+            }
+            
+            .modal-image-container {
+                max-height: calc(100vh - 110px);
+            }
+            
+            .modal-content img {
+                max-height: 65vh;
+                max-width: 95vw;
+            }
+            
+            .modal-close {
+                width: 40px;
+                height: 40px;
+                top: 12px;
+                right: 12px;
+                font-size: 1.2rem;
+            }
+            
+            .modal-info h3 {
+                font-size: 1.4rem;
+            }
+            
+            .modal-info p {
+                font-size: 0.95rem;
+            }
+            
+            /* Prevent horizontal scrolling */
+            body {
+                overflow-x: hidden;
+            }
+            
+            .gallery {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+            /* Footer adjustments for small screens */
+            .footer {
+                padding: 60px 0 20px;
+            }
+            .footer-title {
+                font-size: 1.2rem;
+                padding-left: 10px;
+            }
+            .footer-links a,
+            .footer-contact-info {
+                font-size: 0.95rem;
+                padding-left: 10px;
+                margin-bottom: 8px;
+            }
+            .social-icons {
+                padding-left: 10px;
+            }
+            .social-icons a {
+                width: 28px;
+                height: 28px;
+                line-height: 28px;
+                margin-right: 5px;
+            }
+            .copyright {
+                font-size: 0.75rem;
+                padding: 10px 15px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .footer .col-lg-2,
+            .footer .col-md-6,
+            .footer .col-lg-4 {
+                flex: 1 1 100%;
+                min-width: 100%;
+                padding: 0 10px;
+                margin-bottom: 20px;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .gallery-item {
+                height: 220px;
+            }
+            
+            .gallery-title {
+                font-size: 1.8rem;
+            }
+            
+            .filter-heading {
+                font-size: 1.2rem;
+            }
+            
+            .modal-content {
+                max-width: 100vw;
+                margin: 0;
+                border-radius: 0;
+            }
+            
+            .modal-image-container {
+                max-height: calc(100vh - 100px);
+            }
+            
+            .modal-content img {
+                max-height: 60vh;
+                max-width: 98vw;
+            }
+            
+            .modal-close {
+                width: 35px;
+                height: 35px;
+                top: 10px;
+                right: 10px;
+                font-size: 1.1rem;
+            }
+            
+            .modal-info {
+                padding: 15px;
+            }
+            
+            .modal-info h3 {
+                font-size: 1.3rem;
+            }
+            
+            .modal-info p {
+                font-size: 0.9rem;
+            }
+        }
+        /* Mobile Navbar Sliding Panel */
+        @media (max-width: 1199.98px) {
+            .navbar-nav .nav-link {
+                margin: 0 8px;
+                font-size: 0.95rem;
+            }
+            .nav-link.btn-login {
+                background-color: var(--accent);
+                border: none;
+                padding: 6px 40px;
+                font-size: 0.95rem;
+            }
+        }
+        @media (max-width: 991.98px) {
+            .navbar-collapse {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: var(--primary) !important;
+                transition: right 0.3s ease-in-out, visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
+                padding: 20px;
+                z-index: 1000;
+                visibility: hidden;
+                opacity: 0;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+            .navbar-collapse::-webkit-scrollbar {
+                display: none;
+            }
+            .navbar-collapse::-webkit-scrollbar-thumb {
+                background: transparent;
+            }
+            .navbar-collapse::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            .navbar-collapse.show {
+                right: 0;
+                visibility: visible;
+                opacity: 1;
+                background: var(--primary) !important;
+            }
+            .navbar-nav {
+                flex-direction: column;
+                text-align: center;
+                margin-top: 60px;
+                width: 100%;
+            }
+            .nav-link {
+                margin: 20px 0;
+                padding: 20px 15px;
+                font-size: 1.1rem;
+                text-align: center;
+                display: block;
+            }
+            .nav-link:not(.btn-login)::after {
+                content: none;
+            }
+            .nav-link.active:not(.btn-link)::after {
+                content: none;
+            }
+            .nav-link.btn-login::after {
+                content: none;
+            }
+            .nav-link.btn-login {
+                background-color: var(--accent);
+                border: none;
+                padding: 10px 40px;
+                font-size: 1rem;
+                margin: 20px auto;
+                display: block;
+            }
+            .navbar-close {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                background: transparent;
+                border: none;
+                color: white;
+                font-size: 1.5rem;
+                cursor: pointer;
+                transition: transform 0.3s ease;
+                display: block;
+                z-index: 1001;
+            }
+            .navbar-close:hover {
+                transform: rotate(90deg);
+            }
+            .navbar-collapse.show::after {
+                content: '';
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+            }
+            .navbar-toggler {
+                border: none;
+                padding: 4px 8px;
+                transition: all 0.2s ease;
+            }
+            .navbar-toggler:focus {
+                box-shadow: none;
+            }
+            .navbar-collapse {
+                will-change: transform, opacity;
+            }
+        }
+        @media (min-width: 992px) {
+            .navbar-close {
+                display: none !important;
+            }
+            .footer .col-lg-2 {
+                margin-bottom: 0;
+            }
+        }
+        @media (max-width: 991.98px) {
+        .navbar.sticky-top {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1030;
+        }
+    }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Eveztra</a>
+            <button class="navbar-toggler" type="button" id="navbarToggler">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse" id="navbarNav">
+                <button class="navbar-close d-lg-none" id="navbarClose">
+                    <i class="fas fa-times"></i>
+                </button>
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="eventcatalog.html">Event Catalog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="eventdetails.html">Event Details</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="gallery.html">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="feedback.html">Feedback</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn-login" href="login.html">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Gallery Section -->
+    <section class="gallery">
+        <div class="container">
+            <h2 class="gallery-title" data-aos="zoom-in" data-aos-duration="1000">Event Gallery</h2>
+            
+            <!-- Filter Controls -->
+            <div class="filter-container" data-aos="fade-up" data-aos-delay="200">
+                <h3 class="filter-heading">
+                    <i class="fas fa-filter me-2"></i> Filter & Sort Gallery
+                </h3>
+                <div class="row align-items-center justify-content-center g-3">
+                    <div class="col-lg-4 col-md-6">
+                        <select class="form-control filter-select" id="categoryFilter">
+                            <option value="">All Categories</option>
+                            <option value="Academic">Academic Events</option>
+                            <option value="Cultural">Cultural Events</option>
+                            <option value="Sports">Sports Events</option>
+                            <option value="Departmental">Departmental Events</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <select class="form-control filter-select" id="yearFilter">
+                            <option value="">All Years</option>
+                            <option value="2022-23">2022-23</option>
+                            <option value="2023-24">2023-24</option>
+                            <option value="2024-25">2024-25</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <select class="form-control sort-select" id="sortSelect">
+                            <option value="newest">Newest First</option>
+                            <option value="oldest">Oldest First</option>
+                            <option value="name">Event Name (A-Z)</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-4 col-md-6 text-center">
+                        <button class="btn btn-filter w-100" id="clearFilters">Clear Filters</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="gallery-grid">
+                <!-- Academic Events -->
+                <div class="gallery-item" data-category="Academic" data-year="2024-25" data-aos="fade-right" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Tech Symposium">
+                    <div class="gallery-info">
+                        <h3>Tech Symposium 2024</h3>
+                        <p>Innovation showcase</p>
+                    </div>
+                    <span class="category-badge">Academic</span>
+                    <span class="year-badge">2024-25</span>
+                </div>
+                
+                <div class="gallery-item" data-category="Academic" data-year="2023-24" data-aos="fade-left" data-aos-delay="150">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Hackathon">
+                    <div class="gallery-info">
+                        <h3>Annual Hackathon</h3>
+                        <p>24-hour coding challenge</p>
+                    </div>
+                    <span class="category-badge">Academic</span>
+                    <span class="year-badge">2023-24</span>
+                </div>
+                
+                <div class="gallery-item" data-category="Academic" data-year="2022-23" data-aos="fade-right" data-aos-delay="200">
+                    <img src="images/1-first.jpeg" alt="Robotics Workshop">
+                    <div class="gallery-info">
+                        <h3>Robotics Workshop</h3>
+                        <p>Hands-on learning</p>
+                    </div>
+                    <span class="category-badge">Academic</span>
+                    <span class="year-badge">2022-23</span>
+                </div>
+                
+                <!-- Cultural Events -->
+                <div class="gallery-item" data-category="Cultural" data-year="2024-25" data-aos="fade-left" data-aos-delay="250">
+                    <img src="images/saqafat-kay-rang-event-36.jpg" alt="Cultural Night">
+                    <div class="gallery-info">
+                        <h3>Cultural Night</h3>
+                        <p>Music and dance performances</p>
+                    </div>
+                    <span class="category-badge">Cultural</span>
+                    <span class="year-badge">2024-25</span>
+                </div>
+                
+                <div class="gallery-item" data-category="Cultural" data-year="2023-24" data-aos="fade-right" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Annual Day">
+                    <div class="gallery-info">
+                        <h3>Annual Day Celebration</h3>
+                        <p>College fest highlights</p>
+                    </div>
+                    <span class="category-badge">Cultural</span>
+                    <span class="year-badge">2023-24</span>
+                </div>
+                
+                <div class="gallery-item" data-category="Cultural" data-year="2022-23" data-aos="fade-left" data-aos-delay="350">
+                    <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Music Fest">
+                    <div class="gallery-info">
+                        <h3>Music Fest</h3>
+                        <p>Live performances</p>
+                    </div>
+                    <span class="category-badge">Cultural</span>
+                    <span class="year-badge">2022-23</span>
+                </div>
+                
+                <!-- Sports Events -->
+                <div class="gallery-item" data-category="Sports" data-year="2024-25" data-aos="fade-right" data-aos-delay="400">
+                    <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Sports Tournament">
+                    <div class="gallery-info">
+                        <h3>Sports Tournament</h3>
+                        <p>Inter-college competition</p>
+                    </div>
+                    <span class="category-badge">Sports</span>
+                    <span class="year-badge">2024-25</span>
+                </div>
+                
+                <div class="gallery-item" data-category="Sports" data-year="2023-24" data-aos="fade-left" data-aos-delay="450">
+                    <img src="images/15203243ef1c1ab.webp" alt="Cricket Match">
+                    <div class="gallery-info">
+                        <h3>Cricket Championship</h3>
+                        <p>Annual sports meet</p>
+                    </div>
+                    <span class="category-badge">Sports</span>
+                    <span class="year-badge">2023-24</span>
+                </div>
+                
+                <div class="gallery-item" data-category="Sports" data-year="2022-23" data-aos="fade-right" data-aos-delay="500">
+                    <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Athletics Meet">
+                    <div class="gallery-info">
+                        <h3>Athletics Meet</h3>
+                        <p>Track and field events</p>
+                    </div>
+                    <span class="category-badge">Sports</span>
+                    <span class="year-badge">2022-23</span>
+                </div>
+                
+                <!-- Departmental Events -->
+                <div class="gallery-item" data-category="Departmental" data-year="2024-25" data-aos="fade-left" data-aos-delay="550">
+                    <img src="images/Tips-and-Tricks-for-Organizing-a-Successful-Blood-Drive-1-1080x675.jpg" alt="Blood Donation">
+                    <div class="gallery-info">
+                        <h3>Blood Donation Drive</h3>
+                        <p>Community service initiative</p>
+                    </div>
+                    <span class="category-badge">Departmental</span>
+                    <span class="year-badge">2024-25</span>
+                </div>
+                
+                <div class="gallery-item" data-category="Departmental" data-year="2023-24" data-aos="fade-right" data-aos-delay="600">
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Departmental Seminar">
+                    <div class="gallery-info">
+                        <h3>Departmental Seminar</h3>
+                        <p>Research presentations</p>
+                    </div>
+                    <span class="category-badge">Departmental</span>
+                    <span class="year-badge">2023-24</span>
+                </div>
+                
+                <div class="gallery-item" data-category="Departmental" data-year="2022-23" data-aos="fade-left" data-aos-delay="650">
+                    <img src="images/DSC00570-min.jpg" alt="Alumni Meet">
+                    <div class="gallery-info">
+                        <h3>Alumni Meet</h3>
+                        <p>Networking event</p>
+                    </div>
+                    <span class="category-badge">Departmental</span>
+                    <span class="year-badge">2022-23</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Modal for image view -->
+    <div class="modal" id="imageModal">
+        <div class="modal-close" id="modalClose">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="modal-content">
+            <div class="modal-image-container">
+                <img src="" alt="" id="modalImage">
+            </div>
+            <div class="modal-info">
+                <h3 id="modalTitle"></h3>
+                <p id="modalDescription"></p>
+            </div>
+        </div>
+    </div>
+
+        <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2 col-md-6">
+                    <h3 class="footer-title">Quick Links</h3>
+                    <div class="footer-links">
+                        <a href="index.html">Home</a>
+                        <a href="eventcatalog.html">Events</a>
+                        <a href="gallery.html">Gallery</a>
+                        <a href="about.html">About</a>
+                        <a href="contact.html">Contact</a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h3 class="footer-title">Events</h3>
+                    <div class="footer-links">
+                        <a href="eventcatalog.html">Cultural</a>
+                        <a href="eventcatalog.html">Technical</a>
+                        <a href="eventcatalog.html">Sports</a>
+                        <a href="eventcatalog.html">Workshops</a>
+                        <a href="eventcatalog.html">Alumni Meet</a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h3 class="footer-title">Galleries</h3>
+                    <div class="footer-links">
+                        <a href="gallery.html">Cultural</a>
+                        <a href="gallery.html">Technical</a>
+                        <a href="gallery.html">Sports</a>
+                        <a href="gallery.html">Workshops</a>
+                        <a href="gallery.html">Alumni Meet</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <h3 class="footer-title">Connect with Us</h3>
+                    <div class="footer-links">
+                        <p class="footer-contact-info"><i class="fas fa-map-marker-alt me-2"></i> Bahria College Karsaz</p>
+                        <p class="footer-contact-info"><i class="fas fa-phone me-2"></i> +1 234 567 8900</p>
+                        <p class="footer-contact-info"><i class="fas fa-envelope me-2"></i> info@Eveztra.edu</p>
+                    </div>
+                    <div class="social-icons mt-3">
+                        <a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://x.com/"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Eveztra. All Rights Reserved.</p>
+                <a href="sitemap.html">Sitemap</a>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <!-- AOS JavaScript -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init();
+        // Navbar functionality
+        const navbarToggler = document.getElementById('navbarToggler');
+        const navbarClose = document.getElementById('navbarClose');
+        const navbarCollapse = document.getElementById('navbarNav');
+        const navLinks = document.querySelectorAll('.nav-link');
+        let currentActiveLink = 'gallery.html';
+        
+        function updateActiveLink(href) {
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === href) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        function removeActiveClass() {
+            if (window.innerWidth <= 991.98) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                });
+            } else {
+                updateActiveLink(currentActiveLink);
+            }
+        }
+        
+        const currentPage = window.location.pathname.split('/').pop() || 'gallery.html';
+        updateActiveLink(currentPage);
+        currentActiveLink = currentPage;
+        
+        navbarToggler.addEventListener('click', function() {
+            navbarCollapse.classList.add('show');
+            document.body.style.overflow = 'hidden';
+            removeActiveClass();
+        });
+        
+        navbarClose.addEventListener('click', function() {
+            navbarCollapse.classList.remove('show');
+            document.body.style.overflow = '';
+            removeActiveClass();
+        });
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                currentActiveLink = this.getAttribute('href');
+                if (window.innerWidth > 991.98) {
+                    updateActiveLink(currentActiveLink);
+                } else {
+                    navbarCollapse.classList.remove('show');
+                    document.body.style.overflow = '';
+                    removeActiveClass();
+                }
+            });
+        });
+        
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.navbar-collapse') && !event.target.closest('.navbar-toggler') && navbarCollapse.classList.contains('show')) {
+                navbarCollapse.classList.remove('show');
+                document.body.style.overflow = '';
+                removeActiveClass();
+            }
+        });
+        
+        window.addEventListener('resize', function() {
+            removeActiveClass();
+            if (window.innerWidth > 991.98 && navbarCollapse.classList.contains('show')) {
+                navbarCollapse.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Gallery filtering and sorting functionality
+        const categoryFilter = document.getElementById('categoryFilter');
+        const yearFilter = document.getElementById('yearFilter');
+        const sortSelect = document.getElementById('sortSelect');
+        const clearFiltersBtn = document.getElementById('clearFilters');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        
+        // Function to apply filters and sorting
+        function applyFiltersAndSort() {
+            const categoryValue = categoryFilter.value;
+            const yearValue = yearFilter.value;
+            const sortValue = sortSelect.value;
+            
+            // Convert NodeList to Array for sorting
+            let itemsArray = Array.from(galleryItems);
+            
+            // Filter items based on selected category and year
+            const filteredItems = itemsArray.filter(item => {
+                const itemCategory = item.getAttribute('data-category');
+                const itemYear = item.getAttribute('data-year');
+                
+                const categoryMatch = !categoryValue || itemCategory === categoryValue;
+                const yearMatch = !yearValue || itemYear === yearValue;
+                
+                return categoryMatch && yearMatch;
+            });
+            
+            // Sort the filtered items
+            filteredItems.sort((a, b) => {
+                const titleA = a.querySelector('h3').textContent;
+                const titleB = b.querySelector('h3').textContent;
+                const yearA = a.getAttribute('data-year');
+                const yearB = b.getAttribute('data-year');
+                
+                switch(sortValue) {
+                    case 'newest':
+                        // Sort by year (newest first)
+                        if (yearA !== yearB) {
+                            return yearB.localeCompare(yearA);
+                        }
+                        return titleA.localeCompare(titleB);
+                    case 'oldest':
+                        // Sort by year (oldest first)
+                        if (yearA !== yearB) {
+                            return yearA.localeCompare(yearB);
+                        }
+                        return titleA.localeCompare(titleB);
+                    case 'name':
+                        // Sort by title A-Z
+                        return titleA.localeCompare(titleB);
+                    default:
+                        return 0;
+                }
+            });
+            
+            // Clear the gallery grid
+            const galleryGrid = document.querySelector('.gallery-grid');
+            galleryGrid.innerHTML = '';
+            
+            // Add the filtered and sorted items back to the grid
+            filteredItems.forEach(item => {
+                galleryGrid.appendChild(item);
+            });
+            
+            // Re-initialize AOS for the new items
+            AOS.refresh();
+        }
+        
+        // Event listeners for filters and sorting
+        categoryFilter.addEventListener('change', applyFiltersAndSort);
+        yearFilter.addEventListener('change', applyFiltersAndSort);
+        sortSelect.addEventListener('change', applyFiltersAndSort);
+        
+        // Clear filters button
+        clearFiltersBtn.addEventListener('click', function() {
+            categoryFilter.value = '';
+            yearFilter.value = '';
+            sortSelect.value = 'newest';
+            applyFiltersAndSort();
+        });
+        
+        // Modal functionality for gallery
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+        const modalCloseBtn = document.getElementById('modalClose');
+        
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const imgSrc = item.querySelector('img').src;
+                const title = item.querySelector('h3').textContent;
+                const description = item.querySelector('p').textContent;
+                
+                modalImage.src = imgSrc;
+                modalTitle.textContent = title;
+                modalDescription.textContent = description;
+                
+                modal.classList.add('open');
+                document.body.style.overflow = 'hidden';
+                
+                // Force reflow to trigger animation
+                modal.offsetHeight;
+            });
+        });
+        
+        function closeModal() {
+            modal.classList.remove('open');
+            document.body.style.overflow = 'auto';
+        }
+        
+        modalCloseBtn.addEventListener('click', closeModal);
+        
+        // Close modal when clicking outside image (but not on info panel)
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal || e.target === modal.querySelector('.modal-image-container')) {
+                closeModal();
+            }
+        });
+        
+        // Close with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('open')) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

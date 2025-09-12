@@ -1,0 +1,1836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Event Details - Festiva</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Cinzel:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <!-- AOS for animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Pacifico&display=swap" rel="stylesheet">
+      <link rel="icon" href="images/WhatsApp Image 2025-09-11 at 09.23.26_22c10339.jpg">
+
+    <style>
+        :root {
+            --primary: #854085;   
+            --secondary: #038387; 
+            --accent: #407855;    
+            --light: #f8f9fa;       
+            --dark: #343a40;      
+            --dark-gray: #1a1a1a;
+            --mid-gray: #2a2a2a;
+            --light-gray: #3a3a3a;
+            --text: #e0e0e0;
+            --text-light: #a0a0a0;
+            --gold: #d4af37;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 11px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--light);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+            border: 3px solid #ffffff;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #783778;
+        }
+        /* Navbar Styles */
+        .navbar {
+            background: var(--primary);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+        .navbar-brand {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: white !important;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .navbar-nav {
+            flex-wrap: nowrap;
+            align-items: center;
+        }
+        .nav-link {
+            color: rgba(255,255,255,0.9) !important;
+            font-weight: 500;
+            margin: 0 10px;
+            position: relative;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .nav-link:not(.btn-login)::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+        .nav-link:not(.btn-login):hover::after {
+            width: calc(100% - 20px);
+        }
+        .nav-link.active:not(.btn-login)::after {
+            width: calc(100% - 20px);
+            background-color: var(--accent);
+        }
+        .nav-link:hover {
+            color: white !important;
+        }
+        .nav-link.btn-login {
+            background-color: var(--secondary);
+            border: none;
+            color: white !important;
+            padding: 8px 20px !important;
+            border-radius: 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+            display: inline-block;
+        }
+        .nav-link.btn-login:hover {
+            background-color: #138496;
+            border-color: #138496;
+            color: white !important;
+            transform: translateY(-3px);
+        }
+        /* Event Details Section */
+        .event-details {
+            padding: 50px 0 80px;
+            min-height: 100vh;
+            width: 100%;
+            background-color: var(--light);
+            position: relative;
+        }
+        
+        .details-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+        
+        .event-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .event-content {
+            padding: 40px;
+        }
+        
+        .event-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-weight: 700;
+            font-family: 'Cinzel', serif;
+        }
+        
+        .event-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+        
+        .meta-item i {
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+        
+        .event-category {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), #6a336a);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+        }
+        
+        .event-description {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--dark);
+            margin-bottom: 30px;
+        }
+        
+        .event-description h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .event-description p {
+            margin-bottom: 15px;
+        }
+        
+        .event-description ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .event-description li {
+            margin-bottom: 10px;
+        }
+        
+        .event-actions {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .btn-register {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .btn-register:hover {
+            background: #783778;
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .btn-back {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .btn-back:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .event-highlights {
+            background: rgba(133, 64, 133, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+        
+        .event-highlights h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .highlights-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .highlight-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .highlight-item i {
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+        
+        /* Footer Styles */
+        .footer {
+            background: var(--primary);
+            color: white;
+            padding: 100px 0 40px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 400px;
+        }
+        .footer-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            padding-left: 50px;
+        }
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            padding-left: 50px;
+        }
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(8px);
+        }
+        .footer-contact-info {
+            color: rgba(255,255,255,0.8);
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            padding-left: 50px;
+            text-decoration: none;
+        }
+        .social-icons {
+            padding-left: 50px;
+        }
+        .social-icons a {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            color: white;
+            margin-right: 8px;
+            transition: all 0.3s ease;
+        }
+        .social-icons a:hover {
+            background: var(--accent);
+            transform: scale(1.1);
+        }
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 15px;
+            margin-top: 30px;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.8rem;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            margin-bottom: 0;
+        }
+        .copyright a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            position: relative;
+        }
+        .copyright a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+        .copyright a:hover::after {
+            width: 100%;
+        }
+        .copyright a:hover {
+            color: white;
+        }
+        .footer .row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: 1200px;
+            padding: 0 30px;
+        }
+        .footer .col-lg-2,
+        .footer .col-md-6 {
+            margin-bottom: 30px;
+            padding: 0 20px;
+            flex: 1 1 20%;
+            min-width: 150px;
+        }
+        .footer .col-lg-4 {
+            padding: 0 20px;
+            flex: 1 1 30%;
+            min-width: 250px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 991px) {
+            .event-title {
+                font-size: 2.2rem;
+            }
+            
+            .event-content {
+                padding: 30px;
+            }
+            
+            .event-meta {
+                gap: 15px;
+            }
+            
+            .meta-item {
+                font-size: 1rem;
+            }
+            
+            .event-description {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .event-details {
+                padding: 120px 5% 60px;
+            }
+            
+            .event-image {
+                height: 300px;
+            }
+            
+            .event-title {
+                font-size: 2rem;
+            }
+            
+            .event-content {
+                padding: 20px;
+            }
+            
+            .event-actions {
+                flex-direction: column;
+            }
+            
+            .btn-register, .btn-back {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .highlights-list {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .event-title {
+                font-size: 1.8rem;
+            }
+            
+            .event-image {
+                height: 250px;
+            }
+            
+            .event-meta {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .event-description {
+                font-size: 0.95rem;
+            }
+            
+            .btn-register, .btn-back {
+                font-size: 1rem;
+            }
+            
+            /* Footer adjustments for small screens */
+            .footer {
+                padding: 60px 0 20px;
+            }
+            .footer-title {
+                font-size: 1.2rem;
+                padding-left: 10px;
+            }
+            .footer-links a,
+            .footer-contact-info {
+                font-size: 0.95rem;
+                padding-left: 10px;
+                margin-bottom: 8px;
+            }
+            .social-icons {
+                padding-left: 10px;
+            }
+            .social-icons a {
+                width: 28px;
+                height: 28px;
+                line-height: 28px;
+                margin-right: 5px;
+            }
+            .copyright {
+                font-size: 0.75rem;
+                padding: 10px 15px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .footer .col-lg-2,
+            .footer .col-md-6,
+            .footer .col-lg-4 {
+                flex: 1 1 100%;
+                min-width: 100%;
+                padding: 0 10px;
+                margin-bottom: 20px;
+            }
+        }
+        
+        /* Mobile Navbar Sliding Panel */
+        @media (max-width: 1199.98px) {
+            .navbar-nav .nav-link {
+                margin: 0 8px;
+                font-size: 0.95rem;
+            }
+            .nav-link.btn-login {
+                background-color: var(--accent);
+                border: none;
+                padding: 6px 40px;
+                font-size: 0.95rem;
+            }
+        }
+        @media (max-width: 991.98px) {
+            .navbar-collapse {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: var(--primary) !important;
+                transition: right 0.3s ease-in-out, visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
+                padding: 20px;
+                z-index: 1000;
+                visibility: hidden;
+                opacity: 0;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+            .navbar-collapse::-webkit-scrollbar {
+                display: none;
+            }
+            .navbar-collapse::-webkit-scrollbar-thumb {
+                background: transparent;
+            }
+            .navbar-collapse::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            .navbar-collapse.show {
+                right: 0;
+                visibility: visible;
+                opacity: 1;
+                background: var(--primary) !important;
+            }
+            .navbar-nav {
+                flex-direction: column;
+                text-align: center;
+                margin-top: 60px;
+                width: 100%;
+            }
+            .nav-link {
+                margin: 20px 0;
+                padding: 20px 15px;
+                font-size: 1.1rem;
+                text-align: center;
+                display: block;
+            }
+            .nav-link:not(.btn-login)::after {
+                content: none;
+            }
+            .nav-link.active:not(.btn-link)::after {
+                content: none;
+            }
+            .nav-link.btn-login::after {
+                content: none;
+            }
+            .nav-link.btn-login {
+                background-color: var(--accent);
+                border: none;
+                padding: 10px 40px;
+                font-size: 1rem;
+                margin: 20px auto;
+                display: block;
+            }
+            .navbar-close {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                background: transparent;
+                border: none;
+                color: white;
+                font-size: 1.5rem;
+                cursor: pointer;
+                transition: transform 0.3s ease;
+                display: block;
+                z-index: 1001;
+            }
+            .navbar-close:hover {
+                transform: rotate(90deg);
+            }
+            .navbar-collapse.show::after {
+                content: '';
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+            }
+            .navbar-toggler {
+                border: none;
+                padding: 4px 8px;
+                transition: all 0.2s ease;
+            }
+            .navbar-toggler:focus {
+                box-shadow: none;
+            }
+            .navbar-collapse {
+                will-change: transform, opacity;
+            }
+        }
+        @media (min-width: 992px) {
+            .navbar-close {
+                display: none !important;
+            }
+            .footer .col-lg-2 {
+                margin-bottom: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+ <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Eveztra</a>
+            <button class="navbar-toggler" type="button" id="navbarToggler">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse" id="navbarNav">
+                <button class="navbar-close d-lg-none" id="navbarClose">
+                    <i class="fas fa-times"></i>
+                </button>
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="eventcatalog.html">Event Catalog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="eventdetails.html">Event Details</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gallery.html">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="feedback.html">Feedback</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn-login" href="login.html">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Event Details Sections -->
+    <div class="container">
+        <!-- Event 1: Annual Day Celebration -->
+        <section class="event-details">
+            <div class="details-container" data-aos="fade-up" data-aos-duration="1000">
+                <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Event Image" class="event-image">
+                <div class="event-content">
+                    <span class="event-category">Cultural Event</span>
+                    <h1 class="event-title">Annual Day Celebration</h1>
+                    
+                    <div class="event-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>March 25, 2025</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-clock"></i>
+                            <span>5:00 PM - 10:00 PM</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Main Auditorium</span>
+                        </div>
+                    </div>
+                    
+                    <div class="event-description">
+                        <p>Join us for the most spectacular event of the year - our Annual Day Celebration! This grand event brings together the entire college community to celebrate our achievements, showcase talents, and create unforgettable memories.</p>
+                        
+                        <h3>About the Celebration</h3>
+                        <p>The Annual Day Celebration is the highlight of our college calendar, marking the culmination of a year of hard work, dedication, and excellence. This prestigious event honors the achievements of our students and faculty, while providing a platform for artistic expression and cultural exchange.</p>
+                        
+                        <h3>Event Highlights</h3>
+                        <ul>
+                            <li>Inaugural ceremony by distinguished guests</li>
+                            <li>Annual report presentation by the Principal</li>
+                            <li>Award distribution for academic and extracurricular excellence</li>
+                            <li>Cultural performances by students from all departments</li>
+                            <li>Music and dance showcases</li>
+                            <li>Theatrical presentations and drama performances</li>
+                            <li>Fashion show featuring traditional and contemporary attire</li>
+                            <li>Grand finale with fireworks and music</li>
+                        </ul>
+                        
+                        <h3>Who Should Attend</h3>
+                        <p>This celebration is open to all students, faculty, staff, alumni, and their families. We especially encourage parents to join us in celebrating their children's achievements. The event is also open to the local community and special invitees from educational institutions and industry partners.</p>
+                    </div>
+                    
+                    <div class="event-highlights">
+                        <h3>Celebration Information</h3>
+                        <div class="highlights-list">
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Free Entry for All</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Formal Attire Recommended</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Dinner and Refreshments Provided</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Photography and Videography Services</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="event-actions">
+                        <a href="registration.html" class="btn-register">
+                            <i class="fas fa-user-plus"></i>
+                            Register Now
+                        </a>
+                        <a href="eventcatalog.html" class="btn-back">
+                            <i class="fas fa-arrow-left"></i>
+                            Back to Events
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Event 2: Blood Donation Drive -->
+        <section class="event-details">
+            <div class="details-container" data-aos="fade-up" data-aos-duration="1000">
+                <img src="images/Tips-and-Tricks-for-Organizing-a-Successful-Blood-Drive-1-1080x675.jpg" alt="Blood Donation Drive Image" class="event-image">
+                <div class="event-content">
+                    <span class="event-category">Healthcare Event</span>
+                    <h1 class="event-title">Blood Donation Drive</h1>
+                    
+                    <div class="event-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>November 15, 2025</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-clock"></i>
+                            <span>9:00 AM - 5:00 PM</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>College Health Center</span>
+                        </div>
+                    </div>
+                    
+                    <div class="event-description">
+                        <p>Join us for our annual Blood Donation Drive and help save lives! This is your opportunity to make a real difference in our community by donating the gift of life.</p>
+                        
+                        <h3>About the Blood Donation Drive</h3>
+                        <p>The Blood Donation Drive is a humanitarian initiative aimed at collecting blood donations to support local hospitals and blood banks. This event promotes awareness about the importance of blood donation and provides a safe, convenient way for eligible donors to contribute to this life-saving cause. Every donation can help save up to three lives!</p>
+                        
+                        <h3>Donation Process</h3>
+                        <ul>
+                            <li>Registration - Fill out a donor registration form</li>
+                            <li>Health Screening - Brief health check and questionnaire</li>
+                            <li>Donation - The actual blood donation process (about 10 minutes)</li>
+                            <li>Refreshments - Enjoy snacks and beverages after donation</li>
+                            <li>Rest - A short rest period before leaving</li>
+                        </ul>
+                        
+                        <h3>Who Can Donate</h3>
+                        <p>Donors must be between 18-60 years of age, weigh at least 50 kg, and be in good health. Potential donors will be screened for eligibility on the day of the event. Please bring a valid ID proof and eat a good meal before donating. For specific eligibility questions, please consult with our medical staff at the event.</p>
+                    </div>
+                    
+                    <div class="event-highlights">
+                        <h3>Donation Drive Information</h3>
+                        <div class="highlights-list">
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>No Registration Fee</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Certificate of Appreciation for All Donors</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Free Health Check-up</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Refreshments and Post-Donation Care</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Professional Medical Staff On-site</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>All Safety Protocols Followed</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="event-actions">
+                        <a href="registration.html" class="btn-register">
+                            <i class="fas fa-user-plus"></i>
+                            Register Now
+                        </a>
+                        <a href="eventcatalog.html" class="btn-back">
+                            <i class="fas fa-arrow-left"></i>
+                            Back to Events
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Event 3: Cultural Night -->
+        <section class="event-details">
+            <div class="details-container" data-aos="fade-up" data-aos-duration="1000">
+                <img src="images/saqafat-kay-rang-event-36.jpg" alt="Event Image" class="event-image">
+                <div class="event-content">
+                    <span class="event-category">Cultural Event</span>
+                    <h1 class="event-title">Cultural Night</h1>
+                    
+                    <div class="event-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>October 22, 2025</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-clock"></i>
+                            <span>6:00 PM - 10:00 PM</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Open Air Theater</span>
+                        </div>
+                    </div>
+                    
+                    <div class="event-description">
+                        <p>Join us for an enchanting evening of music, dance, and performances at our annual Cultural Night! This spectacular event showcases the diverse talents of our students and brings together different cultures from around the world.</p>
+                        
+                        <h3>About the Event</h3>
+                        <p>Cultural Night is one of the most anticipated events of the year, celebrating the rich diversity of our college community. The event features a variety of performances including music, dance, drama, and fashion shows, all presented by our talented students.</p>
+                        
+                        <h3>Event Highlights</h3>
+                        <ul>
+                            <li>Live music performances by student bands</li>
+                            <li>Traditional and contemporary dance performances</li>
+                            <li>Drama and theatrical presentations</li>
+                            <li>Fashion show featuring traditional attire from different cultures</li>
+                            <li>Food stalls offering cuisines from around the world</li>
+                            <li>Art exhibition showcasing student artwork</li>
+                        </ul>
+                        
+                        <h3>Who Should Attend</h3>
+                        <p>This event is open to all students, faculty, staff, and their families. Whether you're a performer or simply want to enjoy the show, Cultural Night promises to be a memorable experience for everyone. It's a wonderful opportunity to celebrate our diverse community and appreciate the talents of our students.</p>
+                    </div>
+                    
+                    <div class="event-highlights">
+                        <h3>Key Information</h3>
+                        <div class="highlights-list">
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Free Entry for All</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Food and Refreshments Available</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Open Seating - First Come, First Served</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Rain or Shine Event</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="event-actions">
+                        <a href="registration.html" class="btn-register">
+                            <i class="fas fa-user-plus"></i>
+                            Register Now
+                        </a>
+                        <a href="eventcatalog.html" class="btn-back">
+                            <i class="fas fa-arrow-left"></i>
+                            Back to Events
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Event 4: Dance Competition -->
+        <section class="event-details">
+            <div class="details-container" data-aos="fade-up" data-aos-duration="1000">
+                <img src="images/InternationalAutumnGala-17.webp" alt="Dance Competition Image" class="event-image">
+                <div class="event-content">
+                    <span class="event-category">Cultural Event</span>
+                    <h1 class="event-title">Dance Competition</h1>
+                    
+                    <div class="event-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>November 15-17, 2025</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-clock"></i>
+                            <span>5:00 PM - 9:00 PM</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Auditorium Hall</span>
+                        </div>
+                    </div>
+                    
+                    <div class="event-description">
+                        <p>Get ready to witness the most spectacular display of talent and creativity at our annual Dance Competition! This electrifying event brings together the finest dancers from across the region to compete in various dance categories.</p>
+                        
+                        <h3>About the Competition</h3>
+                        <p>The Dance Competition is a three-day extravaganza celebrating the art of dance in all its forms. This event provides a platform for dancers to showcase their skills, express their creativity, and compete for prestigious titles. With categories ranging from classical to contemporary, our competition aims to honor both tradition and innovation in dance. Participants will have the opportunity to perform in front of esteemed judges and enthusiastic audiences.</p>
+                        
+                        <h3>Dance Categories</h3>
+                        <ul>
+                            <li>Classical Dance (Bharatanatyam, Kathak, Odissi, etc.)</li>
+                            <li>Western Contemporary</li>
+                            <li>Group Dance (Minimum 5 members)</li>
+                            <li>Duet Dance</li>
+                            <li>Solo Freestyle</li>
+                            <li>Folk Dance</li>
+                            <li>Hip-Hop & Street Dance</li>
+                            <li>Fusion Dance (Combining multiple styles)</li>
+                        </ul>
+                        
+                        <h3>Who Should Participate</h3>
+                        <p>This competition is open to all students, faculty, and staff members. Participants can register as individuals or in groups for group categories. We welcome dancers of all skill levels, from beginners to professionals. Spectators are also encouraged to attend and cheer for their favorite performers. Special prizes will be awarded to the most promising talents in each category.</p>
+                    </div>
+                    
+                    <div class="event-highlights">
+                        <h3>Competition Information</h3>
+                        <div class="highlights-list">
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Registration Fee: ₹150 per person</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Group Registration: ₹500 per team</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Cash Prizes for Winners</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Trophies and Certificates</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Renowned Judges from Dance Industry</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Professional Sound and Lighting Setup</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="event-actions">
+                        <a href="registration.html" class="btn-register">
+                            <i class="fas fa-user-plus"></i>
+                            Register Now
+                        </a>
+                        <a href="eventcatalog.html" class="btn-back">
+                            <i class="fas fa-arrow-left"></i>
+                            Back to Events
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Event 5: Hackathon 2025 -->
+        <section class="event-details">
+            <div class="details-container" data-aos="fade-up" data-aos-duration="1000">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Hackathon Event Image" class="event-image">
+                <div class="event-content">
+                    <span class="event-category">Technical Event</span>
+                    <h1 class="event-title">Hackathon 2025</h1>
+                    
+                    <div class="event-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>November 15-17, 2025</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-clock"></i>
+                            <span>9:00 AM - 9:00 PM</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Technology Innovation Center</span>
+                        </div>
+                    </div>
+                    
+                    <div class="event-description">
+                        <p>Join us for the most innovative tech event of the year! Our annual Hackathon 2025 brings together creative minds to develop cutting-edge solutions for real-world problems.</p>
+                        
+                        <h3>About the Hackathon</h3>
+                        <p>Hackathon 2025 is a 48-hour intensive coding competition where participants form teams to create innovative technological solutions. This event promotes creativity, collaboration, and technical excellence among students, developers, and tech enthusiasts. Whether you're an experienced programmer or just starting your coding journey, there's a place for you in our hackathon.</p>
+                        
+                        <h3>Competition Tracks</h3>
+                        <ul>
+                            <li>Artificial Intelligence & Machine Learning</li>
+                            <li>Blockchain & Web3 Applications</li>
+                            <li>Mobile App Development</li>
+                            <li>Web Development</li>
+                            <li>IoT & Smart Systems</li>
+                            <li>Sustainable Technology Solutions</li>
+                            <li>Healthcare Innovation</li>
+                            <li>Open Innovation</li>
+                        </ul>
+                        
+                        <h3>Who Should Participate</h3>
+                        <p>This hackathon is open to all students, developers, designers, and tech enthusiasts. Participants can register as individuals or form teams of 2-5 members. We encourage participants from diverse backgrounds and skill levels to join. Mentors and industry experts will be available throughout the event to guide and support teams.</p>
+                    </div>
+                    
+                    <div class="event-highlights">
+                        <h3>Hackathon Information</h3>
+                        <div class="highlights-list">
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Registration Fee: ₹200 per person</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Cash Prizes: ₹1,00,000 for Winners</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Free Meals and Refreshments</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Swag and Goodies for All Participants</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Networking Opportunities with Tech Leaders</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Sleeping Area and Rest Facilities</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="event-actions">
+                        <a href="registration.html" class="btn-register">
+                            <i class="fas fa-user-plus"></i>
+                            Register Now
+                        </a>
+                        <a href="eventcatalog.html" class="btn-back">
+                            <i class="fas fa-arrow-left"></i>
+                            Back to Events
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Event 6: Inter-College Cricket Match -->
+        <section class="event-details">
+            <div class="details-container" data-aos="fade-up" data-aos-duration="1000">
+                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Cricket Match Image" class="event-image">
+                <div class="event-content">
+                    <span class="event-category">Sports Event</span>
+                    <h1 class="event-title">Inter-College Cricket Match</h1>
+                    
+                    <div class="event-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>November 15, 2025</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-clock"></i>
+                            <span>9:00 AM - 5:00 PM</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>College Cricket Ground</span>
+                        </div>
+                    </div>
+                    
+                    <div class="event-description">
+                        <p>Join us for the most exciting cricket event of the year! Our Inter-College Cricket Match brings together talented players from different colleges to compete in a thrilling day of cricket.</p>
+                        
+                        <h3>About the Match</h3>
+                        <p>The Inter-College Cricket Match is a prestigious tournament that showcases the best cricketing talent from colleges across the region. This event promotes sportsmanship, teamwork, and healthy competition among students. Whether you're a player or a spectator, this match promises to be an unforgettable experience filled with excitement and passion for the game.</p>
+                        
+                        <h3>Match Format</h3>
+                        <ul>
+                            <li>T20 format with 20 overs per side</li>
+                            <li>Round-robin league followed by knockout stages</li>
+                            <li>Maximum 15 players per team</li>
+                            <li>Professional umpires and match officials</li>
+                            <li>Live scoring and commentary</li>
+                        </ul>
+                        
+                        <h3>Who Should Participate</h3>
+                        <p>This tournament is open to all college students with a valid college ID. Teams can register through their college sports departments. Individual players without college teams can also register and will be placed in combined teams. Spectators are welcome to cheer for their favorite teams and enjoy the thrilling atmosphere!</p>
+                    </div>
+                    
+                    <div class="event-highlights">
+                        <h3>Match Information</h3>
+                        <div class="highlights-list">
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Registration Fee: ₹500 per team</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Trophy and Cash Prizes for Winners</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Man of the Match Awards</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Free Refreshments for Players</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>First Aid and Medical Support</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Spectator Seating Available</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="event-actions">
+                        <a href="registration.html" class="btn-register">
+                            <i class="fas fa-user-plus"></i>
+                            Register Now
+                        </a>
+                        <a href="eventcatalog.html" class="btn-back">
+                            <i class="fas fa-arrow-left"></i>
+                            Back to Events
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Event 7: Music Fest -->
+        <section class="event-details">
+            <div class="details-container" data-aos="fade-up" data-aos-duration="1000">
+                <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Music Fest Image" class="event-image">
+                <div class="event-content">
+                    <span class="event-category">Cultural Event</span>
+                    <h1 class="event-title">Music Fest</h1>
+                    
+                    <div class="event-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>November 15-17, 2025</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-clock"></i>
+                            <span>4:00 PM - 11:00 PM</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>College Amphitheater</span>
+                        </div>
+                    </div>
+                    
+                    <div class="event-description">
+                        <p>Get ready for the most electrifying musical experience of the year! Our annual Music Fest brings together talented artists, bands, and performers for three days of non-stop entertainment and celebration.</p>
+                        
+                        <h3>About the Music Fest</h3>
+                        <p>The Music Fest is a three-day celebration of music, art, and culture. This event showcases a diverse range of musical genres and performances, from rock and pop to classical and fusion. Whether you're a music enthusiast or just looking for a great time, our festival offers something for everyone. Join us for an unforgettable experience filled with live performances, food stalls, and vibrant atmosphere.</p>
+                        
+                        <h3>Featured Performances</h3>
+                        <ul>
+                            <li>Rock Bands Showdown</li>
+                            <li>Acoustic Sessions</li>
+                            <li>DJ Nights & Electronic Music</li>
+                            <li>Classical Music Ensemble</li>
+                            <li>Folk & Traditional Performances</li>
+                            <li>Battle of the Bands Competition</li>
+                            <li>Solo Artist Showcase</li>
+                            <li>Fusion Music Collaborations</li>
+                        </ul>
+                        
+                        <h3>Who Should Attend</h3>
+                        <p>This festival is open to all students, faculty, staff, and music lovers from the community. Whether you're a performer or just want to enjoy the music, you're welcome to join us. Food and beverage stalls will be available throughout the event. Don't forget to bring your friends and family for this incredible musical journey!</p>
+                    </div>
+                    
+                    <div class="event-highlights">
+                        <h3>Festival Information</h3>
+                        <div class="highlights-list">
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Entry Fee: ₹200 for 3-day pass</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Single Day Pass: ₹100</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Food & Beverage Stalls Available</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Merchandise & Artist Meet & Greet</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Free Workshops for Music Enthusiasts</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Security & First Aid Services On-site</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="event-actions">
+                        <a href="registration.html" class="btn-register">
+                            <i class="fas fa-user-plus"></i>
+                            Register Now
+                        </a>
+                        <a href="eventcatalog.html" class="btn-back">
+                            <i class="fas fa-arrow-left"></i>
+                            Back to Events
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Event 8: Past Robotics Championship -->
+        <section class="event-details">
+            <div class="details-container" data-aos="fade-up" data-aos-duration="1000">
+                <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Robotics Championship Image" class="event-image">
+                <div class="event-content">
+                    <span class="event-category">Technical Event</span>
+                    <h1 class="event-title">Past Robotics Championship</h1>
+                    
+                    <div class="event-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>November 15-17, 2024</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-clock"></i>
+                            <span>9:00 AM - 6:00 PM</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Technology Innovation Center</span>
+                        </div>
+                    </div>
+                    
+                    <div class="event-description">
+                        <p>Relive the excitement of our most prestigious technical event! The Past Robotics Championship brought together the brightest minds in robotics to compete in an exhilarating display of innovation and engineering prowess.</p>
+                        
+                        <h3>About the Championship</h3>
+                        <p>The Past Robotics Championship was a three-day competition that challenged participants to design, build, and program autonomous robots to complete specific tasks. This event showcased the incredible talent and creativity of students from various institutions, pushing the boundaries of what's possible in robotics. Teams competed in multiple categories, each testing different aspects of robotics including navigation, manipulation, and artificial intelligence.</p>
+                        
+                        <h3>Competition Categories</h3>
+                        <ul>
+                            <li>Autonomous Navigation Challenge</li>
+                            <li>Robot Soccer Tournament</li>
+                            <li>Line Following Competition</li>
+                            <li>Maze Solving Challenge</li>
+                            <li>Object Manipulation Task</li>
+                            <li>Drone Racing Championship</li>
+                            <li>Robot Sumo Wrestling</li>
+                            <li>Innovation in Robotics Showcase</li>
+                        </ul>
+                        
+                        <h3>Championship Highlights</h3>
+                        <p>The championship featured teams from over 20 colleges and universities, with more than 100 participants showcasing their robotic creations. Industry experts and leading professionals in the field of robotics served as judges, providing valuable feedback and guidance to the participants. The event also included workshops and seminars by renowned robotics experts, offering attendees insights into the latest trends and technologies in the field.</p>
+                    </div>
+                    
+                    <div class="event-highlights">
+                        <h3>Championship Results</h3>
+                        <div class="highlights-list">
+                            <div class="highlight-item">
+                                <i class="fas fa-trophy"></i>
+                                <span>Overall Winner: Team Tech Titans</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-medal"></i>
+                                <span>Runner-up: Team Robo Warriors</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-award"></i>
+                                <span>Innovation Award: Team Future Builders</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-star"></i>
+                                <span>Best Design: Team Mechanical Masters</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-users"></i>
+                                <span>100+ Participants from 20+ Institutions</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-industry"></i>
+                                <span>10+ Industry Sponsors and Partners</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="event-actions">
+                        <a href="registration.html" class="btn-register">
+                            <i class="fas fa-user-plus"></i>
+                            Register Now
+                        </a>
+                        <a href="eventcatalog.html" class="btn-back">
+                            <i class="fas fa-arrow-left"></i>
+                            Back to Events
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Event 9: Sports Tournament -->
+        <section class="event-details">
+            <div class="details-container" data-aos="fade-up" data-aos-duration="1000">
+                <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Event Image" class="event-image">
+                <div class="event-content">
+                    <span class="event-category">Sports Event</span>
+                    <h1 class="event-title">Sports Tournament</h1>
+                    
+                    <div class="event-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>November 15-20, 2025</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-clock"></i>
+                            <span>9:00 AM - 6:00 PM</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Sports Complex</span>
+                        </div>
+                    </div>
+                    
+                    <div class="event-description">
+                        <p>Get ready for the most exciting sports event of the year! Our annual Sports Tournament brings together athletes from all departments to compete in a variety of sports and showcase their skills.</p>
+                        
+                        <h3>About the Tournament</h3>
+                        <p>The Sports Tournament is a week-long celebration of athleticism, teamwork, and healthy competition. This event promotes physical fitness, sportsmanship, and camaraderie among students, faculty, and staff. Whether you're a seasoned athlete or a casual player, there's a place for you in our tournament.</p>
+                        
+                        <h3>Sports Categories</h3>
+                        <ul>
+                            <li>Cricket - Men's and Women's teams</li>
+                            <li>Football (Soccer) - Open category</li>
+                            <li>Basketball - Men's and Women's teams</li>
+                            <li>Volleyball - Mixed teams</li>
+                            <li>Badminton - Singles and Doubles</li>
+                            <li>Table Tennis - Singles and Doubles</li>
+                            <li>Athletics - Track and Field events</li>
+                            <li>Chess - Individual competition</li>
+                        </ul>
+                        
+                        <h3>Who Should Participate</h3>
+                        <p>This tournament is open to all students, faculty, and staff members. Participants can register as individuals or form teams for team sports. We encourage everyone to participate, regardless of skill level. Spectators are also welcome to cheer for their favorite teams and players!</p>
+                    </div>
+                    
+                    <div class="event-highlights">
+                        <h3>Tournament Information</h3>
+                        <div class="highlights-list">
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Registration Fee: ₹100 per person</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Prizes for Winners and Runners-up</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Free Refreshments for Participants</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Medical Support Available On-site</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="event-actions">
+                        <a href="registration.html" class="btn-register">
+                            <i class="fas fa-user-plus"></i>
+                            Register Now
+                        </a>
+                        <a href="eventcatalog.html" class="btn-back">
+                            <i class="fas fa-arrow-left"></i>
+                            Back to Events
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Event 10: TechFest 2025 -->
+        <section class="event-details">
+            <div class="details-container" data-aos="fade-up" data-aos-duration="1000">
+                <img src="images/CodeGirls-TechFest-2022-–-Event-Roundup-feature.jpg" alt="Event Image" class="event-image">
+                <div class="event-content">
+                    <span class="event-category">Academic Event</span>
+                    <h1 class="event-title">TechFest 2025</h1>
+                    
+                    <div class="event-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>October 15, 2025</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-clock"></i>
+                            <span>10:00 AM - 5:00 PM</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Main Auditorium</span>
+                        </div>
+                    </div>
+                    
+                    <div class="event-description">
+                        <p>Join us for the most anticipated technology event of the year - TechFest 2025! This annual gathering brings together students, faculty, and industry professionals to showcase the latest innovations in technology and engineering.</p>
+                        
+                        <h3>About the Event</h3>
+                        <p>TechFest 2025 is a platform for budding technocrats to present their ideas, projects, and research work. The event features a variety of activities including technical paper presentations, project exhibitions, workshops, and panel discussions with industry experts.</p>
+                        
+                        <h3>Event Highlights</h3>
+                        <ul>
+                            <li>Keynote speeches by renowned industry leaders</li>
+                            <li>Technical paper presentations on cutting-edge technologies</li>
+                            <li>Project exhibitions showcasing student innovations</li>
+                            <li>Interactive workshops on emerging technologies</li>
+                            <li>Networking opportunities with industry professionals</li>
+                            <li>Awards and recognition for outstanding contributions</li>
+                        </ul>
+                        
+                        <h3>Who Should Attend</h3>
+                        <p>This event is ideal for students, faculty members, researchers, and anyone interested in the latest developments in technology. Whether you're looking to learn, share your work, or network with like-minded individuals, TechFest 2025 has something for everyone.</p>
+                    </div>
+                    
+                    <div class="event-highlights">
+                        <h3>Key Information</h3>
+                        <div class="highlights-list">
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Registration Required</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Certificate of Participation</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Free Entry for College Students</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Lunch Provided</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="event-actions">
+                        <a href="registration.html" class="btn-register">
+                            <i class="fas fa-user-plus"></i>
+                            Register Now
+                        </a>
+                        <a href="eventcatalog.html" class="btn-back">
+                            <i class="fas fa-arrow-left"></i>
+                            Back to Events
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Event 11: Tech Symposium 2024 -->
+        <section class="event-details">
+            <div class="details-container" data-aos="fade-up" data-aos-duration="1000">
+                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&q=80" alt="Event Image" class="event-image">
+                <div class="event-content">
+                    <span class="event-category">Academic Event</span>
+                    <h1 class="event-title">Tech Symposium 2024</h1>
+                    
+                    <div class="event-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>October 15, 2024</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-clock"></i>
+                            <span>10:00 AM - 5:00 PM</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Main Auditorium</span>
+                        </div>
+                    </div>
+                    
+                    <div class="event-description">
+                        <p>Join us for the most anticipated technology event of the year - Tech Symposium 2024! This annual gathering brings together students, faculty, and industry professionals to showcase the latest innovations in technology and engineering.</p>
+                        
+                        <h3>About the Event</h3>
+                        <p>Tech Symposium 2024 is a platform for budding technocrats to present their ideas, projects, and research work. The event features a variety of activities including technical paper presentations, project exhibitions, workshops, and panel discussions with industry experts.</p>
+                        
+                        <h3>Event Highlights</h3>
+                        <ul>
+                            <li>Keynote speeches by renowned industry leaders</li>
+                            <li>Technical paper presentations on cutting-edge technologies</li>
+                            <li>Project exhibitions showcasing student innovations</li>
+                            <li>Interactive workshops on emerging technologies</li>
+                            <li>Networking opportunities with industry professionals</li>
+                            <li>Awards and recognition for outstanding contributions</li>
+                        </ul>
+                        
+                        <h3>Who Should Attend</h3>
+                        <p>This event is ideal for students, faculty members, researchers, and anyone interested in the latest developments in technology. Whether you're looking to learn, share your work, or network with like-minded individuals, Tech Symposium 2024 has something for everyone.</p>
+                    </div>
+                    
+                    <div class="event-highlights">
+                        <h3>Key Information</h3>
+                        <div class="highlights-list">
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Registration Required</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Certificate of Participation</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Free Entry for College Students</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Lunch Provided</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="event-actions">
+                        <a href="registration.html" class="btn-register">
+                            <i class="fas fa-user-plus"></i>
+                            Register Now
+                        </a>
+                        <a href="eventcatalog.html" class="btn-back">
+                            <i class="fas fa-arrow-left"></i>
+                            Back to Events
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Event 12: Workshop on AI -->
+        <section class="event-details">
+            <div class="details-container" data-aos="fade-up" data-aos-duration="1000">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Event Image" class="event-image">
+                <div class="event-content">
+                    <span class="event-category">Workshop</span>
+                    <h1 class="event-title">Workshop on AI</h1>
+                    
+                    <div class="event-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>December 10, 2025</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-clock"></i>
+                            <span>10:00 AM - 4:00 PM</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Computer Science Lab</span>
+                        </div>
+                    </div>
+                    
+                    <div class="event-description">
+                        <p>Join us for an immersive workshop on Artificial Intelligence! This hands-on session will introduce participants to the fundamentals of AI, machine learning, and their practical applications in various fields.</p>
+                        
+                        <h3>About the Workshop</h3>
+                        <p>This workshop is designed to provide a comprehensive introduction to Artificial Intelligence and its applications. Led by industry experts, participants will gain theoretical knowledge and practical experience through interactive sessions and coding exercises.</p>
+                        
+                        <h3>Workshop Topics</h3>
+                        <ul>
+                            <li>Introduction to Artificial Intelligence</li>
+                            <li>Machine Learning Fundamentals</li>
+                            <li>Neural Networks and Deep Learning</li>
+                            <li>Natural Language Processing</li>
+                            <li>Computer Vision Applications</li>
+                            <li>Ethical Considerations in AI</li>
+                            <li>Hands-on Coding Sessions</li>
+                            <li>Real-world AI Case Studies</li>
+                        </ul>
+                        
+                        <h3>Who Should Attend</h3>
+                        <p>This workshop is ideal for students, professionals, and enthusiasts interested in learning about Artificial Intelligence. No prior programming experience is required, though basic knowledge of computer science concepts will be beneficial. Whether you're new to AI or looking to expand your knowledge, this workshop offers valuable insights for everyone.</p>
+                    </div>
+                    
+                    <div class="event-highlights">
+                        <h3>Workshop Information</h3>
+                        <div class="highlights-list">
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Registration Fee: ₹200 per person</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Certificates of Participation</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Study Materials Provided</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Laptops Recommended</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="event-actions">
+                        <a href="registration.html" class="btn-register">
+                            <i class="fas fa-user-plus"></i>
+                            Register Now
+                        </a>
+                        <a href="eventcatalog.html" class="btn-back">
+                            <i class="fas fa-arrow-left"></i>
+                            Back to Events
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+       <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2 col-md-6">
+                    <h3 class="footer-title">Quick Links</h3>
+                    <div class="footer-links">
+                        <a href="index.html">Home</a>
+                        <a href="eventcatalog.html">Events</a>
+                        <a href="gallery.html">Gallery</a>
+                        <a href="about.html">About</a>
+                        <a href="contact.html">Contact</a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h3 class="footer-title">Events</h3>
+                    <div class="footer-links">
+                        <a href="eventcatalog.html">Cultural</a>
+                        <a href="eventcatalog.html">Technical</a>
+                        <a href="eventcatalog.html">Sports</a>
+                        <a href="eventcatalog.html">Workshops</a>
+                        <a href="eventcatalog.html">Alumni Meet</a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h3 class="footer-title">Galleries</h3>
+                    <div class="footer-links">
+                        <a href="gallery.html">Cultural</a>
+                        <a href="gallery.html">Technical</a>
+                        <a href="gallery.html">Sports</a>
+                        <a href="gallery.html">Workshops</a>
+                        <a href="gallery.html">Alumni Meet</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <h3 class="footer-title">Connect with Us</h3>
+                    <div class="footer-links">
+                        <p class="footer-contact-info"><i class="fas fa-map-marker-alt me-2"></i> Bahria College Karsaz</p>
+                        <p class="footer-contact-info"><i class="fas fa-phone me-2"></i> +1 234 567 8900</p>
+                        <p class="footer-contact-info"><i class="fas fa-envelope me-2"></i> info@Eveztra.edu</p>
+                    </div>
+                    <div class="social-icons mt-3">
+                        <a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://x.com/"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Eveztra. All Rights Reserved.</p>
+                <a href="sitemap.html">Sitemap</a>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <!-- AOS JavaScript -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init();
+        
+        // Navbar functionality
+        const navbarToggler = document.getElementById('navbarToggler');
+        const navbarClose = document.getElementById('navbarClose');
+        const navbarCollapse = document.getElementById('navbarNav');
+        const navLinks = document.querySelectorAll('.nav-link');
+        let currentActiveLink = 'eventcatalog.html';
+        
+        function updateActiveLink(href) {
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === href) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        function removeActiveClass() {
+            if (window.innerWidth <= 991.98) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                });
+            } else {
+                updateActiveLink(currentActiveLink);
+            }
+        }
+        
+        const currentPage = window.location.pathname.split('/').pop() || 'eventcatalog.html';
+        updateActiveLink(currentPage);
+        currentActiveLink = currentPage;
+        
+        navbarToggler.addEventListener('click', function() {
+            navbarCollapse.classList.add('show');
+            document.body.style.overflow = 'hidden';
+            removeActiveClass();
+        });
+        
+        navbarClose.addEventListener('click', function() {
+            navbarCollapse.classList.remove('show');
+            document.body.style.overflow = '';
+            removeActiveClass();
+        });
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                currentActiveLink = this.getAttribute('href');
+                if (window.innerWidth > 991.98) {
+                    updateActiveLink(currentActiveLink);
+                } else {
+                    navbarCollapse.classList.remove('show');
+                    document.body.style.overflow = '';
+                    removeActiveClass();
+                }
+            });
+        });
+        
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.navbar-collapse') && !event.target.closest('.navbar-toggler') && navbarCollapse.classList.contains('show')) {
+                navbarCollapse.classList.remove('show');
+                document.body.style.overflow = '';
+                removeActiveClass();
+            }
+        });
+        
+        window.addEventListener('resize', function() {
+            removeActiveClass();
+            if (window.innerWidth > 991.98 && navbarCollapse.classList.contains('show')) {
+                navbarCollapse.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        });
+        
+
+    </script>
+</body>
+</html>
